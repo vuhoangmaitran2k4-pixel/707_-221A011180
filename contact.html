@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - 707-MSSV</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">707-MSSV</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Trang Chủ</a></li>
+        <li><a href="baitap01.html">Bài tập 01</a></li>
+        <li><a href="baitap02.html">Bài tập 02</a></li>
+        <li><a href="baitap03.html">Bài tập 03</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+      <div class="burger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="contact-container">
+      <h1>Liên hệ</h1>
+      <p>Hãy gửi tin nhắn nếu bạn có câu hỏi, góp ý hoặc muốn trao đổi về dự án.</p>
+
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Tên của bạn" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <textarea id="message" placeholder="Nội dung..." rows="5" required></textarea>
+        <button type="submit">Gửi</button>
+      </form>
+
+      <p id="statusMessage"></p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 707-MSSV. All rights reserved.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    // JS xử lý form contact
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("statusMessage");
+
+    form.addEventListener("submit", function(e){
+      e.preventDefault(); // tránh reload page
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if(!name || !email || !message){
+        status.style.color = "red";
+        status.textContent = "Vui lòng điền đầy đủ thông tin.";
+        return;
+      }
+
+      // Chỉ hiển thị thông báo thành công (demo)
+      status.style.color = "green";
+      status.textContent = "Cảm ơn bạn! Tin nhắn đã được gửi.";
+
+      // Reset form
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>

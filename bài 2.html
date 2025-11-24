@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Đăng ký người dùng</title>
+
+<style>
+  body {
+    font-family: Arial;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .form-box {
+    width: 100%;
+    max-width: 350px;
+    padding: 20px;
+    border-radius: 8px;
+    background: #f8f8f8;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  .form-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+  }
+
+  .error {
+    color: red;
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {
+    .form-box {
+      padding: 15px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="form-box">
+  <h3>Đăng ký</h3>
+  <input id="name" type="text" placeholder="Tên">
+  <input id="email" type="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Mật khẩu">
+  
+  <label>
+    <input id="agree" type="checkbox"> Đồng ý điều khoản
+  </label>
+
+  <button id="submit">Đăng ký</button>
+
+  <p id="message" class="error"></p>
+</div>
+
+<script>
+  const btn = document.getElementById("submit");
+  const msg = document.getElementById("message");
+
+  btn.onclick = function () {
+    msg.textContent = "";
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const pw = document.getElementById("password").value;
+    const agree = document.getElementById("agree").checked;
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Validate mật khẩu: 8 ký tự, hoa, thường, số
+    const pwRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    if (!name) return msg.textContent = "Tên không được để trống";
+    if (!emailRegex.test(email)) return msg.textContent = "Email không hợp lệ";
+    if (!pwRegex.test(pw)) return msg.textContent = "Mật khẩu yếu (≥8 ký tự, hoa/thường/số)";
+    if (!agree) return msg.textContent = "Bạn phải đồng ý điều khoản";
+
+    // Nếu valid → lưu LocalStorage
+    const data = { name, email };
+
+    localStorage.setItem("user", JSON.stringify(data));
+
+    msg.style.color = "green";
+    msg.textContent = "Đăng ký thành công!";
+  }
+</script>
+
+</body>
+</html>

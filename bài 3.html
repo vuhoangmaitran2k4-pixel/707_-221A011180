@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Countdown Timer 10 phút</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f0f0f0;
+  }
+
+  #timer {
+    font-size: 48px;
+    background: #fff;
+    padding: 30px 50px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+  }
+
+  /* Animation khi dưới 1 phút */
+  .warning {
+    color: red;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div id="timer">10:00</div>
+
+<script>
+  // Thời gian ban đầu 10 phút
+  let totalSeconds = 10 * 60;
+
+  const timerEl = document.getElementById("timer");
+
+  const interval = setInterval(() => {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    // Format MM:SS
+    timerEl.textContent = 
+      `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+
+    // Thêm animation khi dưới 1 phút
+    if(totalSeconds <= 60){
+      timerEl.classList.add("warning");
+    }
+
+    totalSeconds--;
+
+    if(totalSeconds < 0){
+      clearInterval(interval); // Stop interval → tránh memory leak
+      alert("Hết giờ!");
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>
